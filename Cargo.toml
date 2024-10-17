@@ -1,0 +1,21 @@
+[workspace]
+resolver = "2"
+
+members = [
+    # Http 服务/客户端支持
+    "simx-http",
+    # Linux 实用工具包
+    "simx-linux",
+    # MSSQL 数据库支持
+    "simx-mssql",
+    # MySQL 数据库支持
+    "simx-mysql",
+    # Oracle 数据库支持
+    "simx-oracle",
+    # RPA 机器人流程自动化支持
+    "simx-rpa",
+    # SSH 隧道、Socket 请求/服务支持
+    "simx-tcp",
+    # Windows 实用工具包
+    "simx-win"
+]
