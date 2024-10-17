@@ -2,20 +2,30 @@
 resolver = "2"
 
 members = [
-    # Http 服务/客户端支持
+    # simx基础功能增强
+    "simx-enhance",
+    # Http/Https 服务/客户端支持
     "simx-http",
-    # Linux 实用工具包
-    "simx-linux",
-    # MSSQL 数据库支持
-    "simx-mssql",
     # MySQL 数据库支持
     "simx-mysql",
+    # MSSQL 数据库支持
+    "simx-mssql",
     # Oracle 数据库支持
     "simx-oracle",
-    # RPA 机器人流程自动化支持
-    "simx-rpa",
     # SSH 隧道、Socket 请求/服务支持
     "simx-tcp",
+    # simx 运维支持
+    "simx-ops",
+    # RPA 机器人流程自动化支持
+    "simx-rpa",
+    # Linux 实用工具包
+    "simx-linux",
     # Windows 实用工具包
-    "simx-win"
+    "simx-win",
+    # 对docker的支持
+    "simx-docker",
+    # 辅助功能包
+    "simx-auxiliary",
+    # simx 安全测试包
+    "simx-hack",
 ]
