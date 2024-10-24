@@ -29,3 +29,6 @@ members = [
     # simx 安全测试包
     "simx-hack",
 ]
+
+[profile.release]
+panic = "abort"
