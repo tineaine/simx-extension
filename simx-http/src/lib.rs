@@ -1,3 +1,4 @@
+use engine_common::entity::exception::node::NodeError;
 use engine_common::entity::flow::flow::FlowData;
 use engine_common::entity::flow::node::Node;
 use engine_common::entity::services::Service;
@@ -25,7 +26,7 @@ pub extern "C" fn handle_service(service: Service) -> Result<(), String> {
 #[no_mangle]
 #[allow(improper_ctypes_definitions)]
 // 函数调用入口（处理器）
-pub extern "C" fn handle_func(node: Node, flow_data: &mut FlowData) -> Result<(), String> {
+pub extern "C" fn handle_func(node: Node, flow_data: &mut FlowData) -> Result<(), NodeError> {
     println!("hello world -> {}", node.handler);
     handler_func(node, flow_data);
     Ok(())
