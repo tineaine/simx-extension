@@ -1,4 +1,4 @@
-use engine_common::entity::services::Service;
+use engine_share::entity::services::Service;
 use rocket::config::LogLevel;
 use rocket::{build, routes, Config};
 use crate::entity::http::HttpConfig;
