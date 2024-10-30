@@ -27,8 +27,10 @@ members = [
     # 辅助功能包
     "simx-auxiliary",
     # simx 安全测试包
-    "simx-hack",
+    "simx-hack", "engine-restful", "engine-cron",
 ]
 
 [profile.release]
 panic = "abort"
+lto = true
+opt-level = "s"
