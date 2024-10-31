@@ -1,6 +1,6 @@
-use serde_derive::Deserialize;
+use serde_derive::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct HttpConfig {
     // 获取监听地址
     pub addr: String,
@@ -26,4 +26,16 @@ impl Default for HttpConfig {
             max_blocking: 10
         }
     }
+}
+
+pub enum HttpMethod {
+    GET,
+    POST,
+    PUT,
+    DELETE,
+    HEAD,
+    OPTIONS,
+    PATCH,
+    TRACE,
+    CONNECT,
 }

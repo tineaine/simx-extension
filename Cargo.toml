@@ -4,7 +4,7 @@ resolver = "2"
 members = [
     # simx基础功能增强
     "simx-enhance",
-    # Http/Https 服务/客户端支持
+    # Http/Https 服务/客户端支持，Simx Restful支持
     "simx-http",
     # MySQL 数据库支持
     "simx-mysql",
@@ -27,7 +27,9 @@ members = [
     # 辅助功能包
     "simx-auxiliary",
     # simx 安全测试包
-    "simx-hack", "engine-restful", "engine-cron",
+    "simx-hack",
+    # 引擎定时任务扩展
+    "engine-cron",
 ]
 
 [profile.release]

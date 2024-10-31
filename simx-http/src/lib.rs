@@ -1,14 +1,15 @@
+use crate::handler::interface::handler_func;
+use crate::service::interface::handler_service;
 use engine_share::entity::exception::node::NodeError;
 use engine_share::entity::extension::Extension;
 use engine_share::entity::flow::flow::FlowData;
 use engine_share::entity::flow::node::Node;
 use engine_share::entity::services::{Service, ServiceState};
-use crate::func::interface::handler_func;
-use crate::service::interface::handler_service;
 
-mod func;
+mod handler;
 mod service;
 pub mod entity;
+pub mod common;
 
 #[no_mangle]
 #[allow(improper_ctypes_definitions)]
@@ -22,17 +23,20 @@ pub async extern "C" fn handle_service(service: Service) -> Result<(), String> {
     let future = async {
         handler_service(service).await;
     };
-    println!("serve has started.");
     tokio::runtime::Runtime::new().unwrap().block_on(future);
     Ok(())
 }
-
 
 #[no_mangle]
 #[allow(improper_ctypes_definitions)]
 // 函数调用入口（处理器）
 pub extern "C" fn handle_func(node: Node, flow_data: &mut FlowData) -> Result<(), NodeError> {
-    handler_func(node, flow_data)
+    let mut res: Result<(), NodeError> = Ok(());
+    let future = async {
+        res = handler_func(node, flow_data).await
+    };
+    tokio::runtime::Runtime::new().unwrap().block_on(future);
+    res
 }
 
 #[no_mangle]
@@ -61,10 +65,9 @@ pub extern "C" fn init() -> bool {
                 handle_func: "".to_string(),
                 handle_service: "".to_string(),
             },
-            data: "{\"port\": 8080, \"workers\": 4, \"max_blocking\": 10, \"cli_colors\": true}".to_string(),
+            data: serde_json::to_string(&entity::http::HttpConfig::default()).unwrap(),
         }).await;
     };
-    println!("serve has started.");
     tokio::runtime::Runtime::new().unwrap().block_on(future);
     true
 }
