@@ -3,7 +3,6 @@ use engine_share::entity::exception::node::NodeError;
 use engine_share::entity::flow::flow::FlowData;
 use engine_share::entity::flow::node::Node;
 use reqwest::Method;
-use std::collections::HashMap;
 
 pub async fn handler_http(node: Node, flow_data: &mut FlowData) -> Result<(), NodeError> {
     let handler_path: Vec<_> = node.handler.split(".").collect();
@@ -24,19 +23,20 @@ async fn request(node: Node, flow_data: &mut FlowData, method: Method) -> Result
     let url = attr.get("url").expect("url not found").as_str().expect("ip must be string");
     let header = attr.get("header").expect("header not found").as_object().expect("header must be object");
     let data = serde_json::to_string(attr.get("data").expect("data not found").as_object().expect("data must be object")).unwrap();
+    let encoding = attr.get("encoding").expect("encoding not found").as_str().expect("encoding must be string");
     let client = reqwest::Client::new();
     // 组装header
     let headers = hashmap_to_headerMap(header);
-    let response: HashMap<String, String>;
-    match method {
-        Method::GET => { response = client.get(url).headers(headers).send().await.expect("request failed").json::<HashMap<String, String>>().await.expect("parse failed"); }
-        Method::POST => { response = client.post(url).headers(headers).body(data).send().await.expect("request failed").json::<HashMap<String, String>>().await.expect("parse failed"); }
-        Method::PUT => { response = client.put(url).headers(headers).body(data).send().await.expect("request failed").json::<HashMap<String, String>>().await.expect("parse failed"); }
-        Method::DELETE => { response = client.delete(url).headers(headers).body(data).send().await.expect("request failed").json::<HashMap<String, String>>().await.expect("parse failed"); }
+    let response: String;
+    // let resp = client.get(url).headers(headers).send().await.expect("request failed").text_with_charset(encoding);
+    response = match method {
+        Method::GET => { client.get(url).headers(headers).body(data).send().await.expect("request failed").text_with_charset(encoding).await.expect("parse failed") }
+        Method::POST => { client.post(url).headers(headers).body(data).send().await.expect("request failed").text_with_charset(encoding).await.expect("parse failed") }
+        Method::PUT => { client.put(url).headers(headers).body(data).send().await.expect("request failed").text_with_charset(encoding).await.expect("parse failed") }
+        Method::DELETE => { client.delete(url).headers(headers).body(data).send().await.expect("request failed").text_with_charset(encoding).await.expect("parse failed") }
         _ => { return Ok(()) }
-    }
-    println!("{:?}", response.clone());
+    };
+    println!("{:?}", response);
     flow_data.json.insert(node.id.unwrap(), serde_json::to_value(response).unwrap());
     Ok(())
 }
-

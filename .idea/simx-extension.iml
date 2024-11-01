@@ -19,6 +19,7 @@
       <sourceFolder url="file://$MODULE_DIR$/simx-ops/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/engine-cron/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/engine-restful/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/simx-agent/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

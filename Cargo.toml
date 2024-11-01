@@ -29,7 +29,7 @@ members = [
     # simx 安全测试包
     "simx-hack",
     # 引擎定时任务扩展
-    "engine-cron",
+    "engine-cron", "simx-agent",
 ]
 
 [profile.release]
