@@ -18,7 +18,7 @@ pub extern "C" fn test() -> bool { true }
 #[no_mangle]
 #[allow(improper_ctypes_definitions)]
 // 服务调用入口
-pub extern "C" fn serve(service: Service) -> Result<(), String> {
+pub extern "C" fn serve(service: Service) -> Result<(), NodeError> {
     let future = async {
         handler_service(service).await;
     };
@@ -42,6 +42,7 @@ pub extern "C" fn func(node: Node, flow_data: &mut FlowData) -> Result<(), NodeE
 #[allow(improper_ctypes_definitions)]
 // 初始化调用入口
 pub extern "C" fn init() -> bool {
+    println!("init");
     true
 }
 

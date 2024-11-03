@@ -32,7 +32,7 @@ members = [
     "engine-cron", "simx-agent",
 ]
 
-[profile.release]
-panic = "abort"
-lto = true
-opt-level = "s"
+#[profile.release]
+#panic = "abort"
+#lto = true
+#opt-level = "s"
