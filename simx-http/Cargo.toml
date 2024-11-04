@@ -1,12 +1,12 @@
 [package]
 name = "simx-http"
-version = "0.0.1"
+version = "0.2.0"
 edition = "2021"
 
 [lib]
 name = "simx_http"
 path = "src/lib.rs"
-crate-type = ["dylib", "rlib"]
+crate-type = ["dylib"]
 
 [dependencies]
 # 公共模块

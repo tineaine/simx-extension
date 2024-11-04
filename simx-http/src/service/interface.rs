@@ -4,15 +4,11 @@ use salvo::prelude::*;
 use salvo::Router;
 
 pub async fn handler_service(service: Service) {
-    println!("----- call services");
     start_service(service).await;
 }
 
 // 根据指定的配置，开启服务监听
 pub async fn start_service(service: Service) {
-    println!("----- 1");
-    // println!("----- ser:{:?}", service);
-    println!("----- 2");
     let conf: HttpConfig = serde_json::from_value(service.data).expect("Unrecognized service configuration.");
     let address = format!("{}:{}", conf.addr, conf.port);
     tracing_subscriber::fmt().init();
